@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Prasanna Image</string>
+    <string name="prasanna_title">Image Example</string>
+    <string name="action_settings">Settings</string>
+    <string name="prasanna_date">Mon, 13 Feb 2014 14:10:00 IST</string>
+    <string name="refresh">REFRESH</string>
+
+</resources>

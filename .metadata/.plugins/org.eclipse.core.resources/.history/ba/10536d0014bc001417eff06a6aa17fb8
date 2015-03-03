@@ -1,0 +1,76 @@
+package android.love;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.TextView;
+
+public class InputHandlerTask extends AsyncTask <String, Void, String>{
+	@Override
+	protected void onPostExecute(String result) {
+		Log.d("Result in onPostExecute", result);
+		setTextFromServer(result);
+	}
+
+	private String textFromServer = null;
+
+	/*public void processInput() throws MalformedURLException, IOException {
+		InputStream inputStream = new URL("http://localhost:8080/sample/sample").openStream();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+		StringBuilder out = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            out.append(line);
+        }
+        textFromServer = out.toString();
+        inputStream.close();
+        reader.close();
+	}*/
+
+
+	public String getTextFromServer() {
+		return textFromServer;
+	}
+
+	public void setTextFromServer(String textFromServer) {
+		this.textFromServer = textFromServer;
+	}
+
+	@Override
+	protected String doInBackground(String... params) {
+		InputStream inputStream = null;
+		BufferedReader reader = null;
+		try {
+			inputStream = new URL(params[0]).openStream();
+			Log.i("Prasanna-params[0]", params[0]);
+			reader = new BufferedReader(new InputStreamReader(inputStream));
+			StringBuilder out = new StringBuilder();
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            out.append(line);
+	        }
+	        textFromServer = out.toString();
+	        Log.i("Prasanna-textFromServer", textFromServer);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				inputStream.close();
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return textFromServer;
+		
+	}
+}
